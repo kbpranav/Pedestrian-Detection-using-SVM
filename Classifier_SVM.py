@@ -8,7 +8,6 @@ Created on Fri Oct  2 11:04:10 2020
 from sklearn.svm import LinearSVC
 import numpy as np
 import cv2 
-#import PIL
 import time
 import tkinter as tk
 import pickle
@@ -28,23 +27,23 @@ class Model:
 
         for i in range(1,500):
             img = cv2.imread(f'database/train/ped/{i}.png')[:, :, 0]
-            #print(img.size)
             img = img.reshape(12800,)
             img_list = np.append(img_list, [img])
             class_list = np.append(class_list, 1)
             
-        #print(len(img_list))
+       
         for i in range(1,500):
             img = cv2.imread(f'database/train/bkg/{i}.png')[:, :, 0]
             img = img.reshape(12800,)
             img_list = np.append(img_list, [img])
             class_list = np.append(class_list, 2)
 
-        #print(len(class_list))
+       
         img_list = img_list.reshape(len(class_list), 12800)
         print("Training Started...")
         self.model.fit(img_list, class_list)
         print("Model successfully trained!")
+        
         # save the model to disk
         filename = 'finalized_model.sav'
         pickle.dump(self.model, open(filename, 'wb'))
@@ -73,8 +72,6 @@ class Model:
                 crop_img= crop_img[:,:,0]
                 crop=np.array(crop_img)
                 crop=cv2.resize(crop, (80, 160))
-                #print("\n\n\n\ Shape:" , crop.shape)
-                #test_image = np.expand_dims(crop, axis = 0)
                 test_image = crop.reshape(12800,)
                 result = self.model.predict([test_image])
                 if(result==1):
@@ -100,10 +97,7 @@ class Model:
     def init_gui(self):
        
         window= tk.Tk()
-        
-        #self.btn_arch = tk.Button(window, text="Load Architecture", width=50, command=self.Load_Model_Arch())
-        #self.btn_arch.pack(anchor=tk.CENTER, expand=True)
-        
+               
         self.btn_train = tk.Button(window ,text="Train Model", width=50, command=lambda: self.train_model())
         self.btn_train.pack(anchor=tk.CENTER, expand=True)
         
