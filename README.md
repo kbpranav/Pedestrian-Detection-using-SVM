@@ -14,5 +14,6 @@ Main file: Classifier_SVM.py
 
 Trained model: finalized_model.sav 
 
+Download the dataset from here : https://drive.google.com/drive/folders/1uxtnKJe6Wxvb59HSW1EgoQ-tC9oCWkZV?usp=sharing and store it in folder named "database", which should be in the same directory as Classifier_SVM.py
 
 
